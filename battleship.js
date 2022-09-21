@@ -25,17 +25,22 @@ const model = {
   ],
   fire: function (guess) {
     for (let i = 0; i < this.ships.length; i++) {
-      const ship = this.ship[i];
+      const ship = this.ships[i];
       const index = ship.locations.indexOf(guess);
       if (index >= 0) {
         ship.hits[index] = "hit";
+        view.displayHit(guess);
+        view.displayMessage("HIT!");
         if (this.isSunk(ship)) {
           this.shipsSunk++;
+          view.displayMessage("You sank my battleship");
         }
         return true;
       }
-      return false;
     }
+    view.displayMiss(guess);
+    view.displayMessage("You missed");
+    return false;
   },
   isSunk: function (ship) {
     for (let i = 0; i < this.shipLength; i++) {
@@ -47,11 +52,21 @@ const model = {
   },
 };
 
-view.displayMiss("00");
-view.displayHit("34");
-view.displayMiss("55");
-view.displayHit("12");
-view.displayMiss("25");
-view.displayHit("26");
+// view.displayMiss("00");
+// view.displayHit("34");
+// view.displayMiss("55");
+// view.displayHit("12");
+// view.displayMiss("25");
+// view.displayHit("26");
 
-view.displayMessage("bla bla");
+// view.displayMessage("bla bla");
+
+model.fire("12");
+model.fire("11");
+model.fire("10");
+
+model.fire("06");
+model.fire("16");
+model.fire("26");
+
+model.fire("53");
