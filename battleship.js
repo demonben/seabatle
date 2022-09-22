@@ -61,7 +61,7 @@ const controller = {
       let hit = model.fire(location);
       if (hit && model.shipsSunk === model.numShips) {
         view.displayMessage(
-          "You sank all my battleships, in" + this.guess + "guesses"
+          "You sank all my battleships, in " + this.guess + " guesses"
         );
       }
     }
@@ -73,7 +73,7 @@ function parseGuess(guess) {
   if (guess === null || guess.length !== 2) {
     alert("Oops, please enter valid coordinate");
   } else {
-    let firstChar = guess.charAt(0);
+    let firstChar = guess.charAt(0).toUpperCase();
     let row = alphabet.indexOf(firstChar);
     let column = guess.charAt(1);
 
@@ -92,6 +92,31 @@ function parseGuess(guess) {
   }
   return null;
 }
+
+function handleFireButton() {
+  const guessInput = document.getElementById("guessInput");
+  const guess = guessInput.value;
+  controller.processGuess(guess);
+
+  guessInput.value = "";
+}
+
+function init() {
+  const fireButton = document.getElementById("fireButton");
+  fireButton.onclick = handleFireButton;
+  const guessInput = document.getElementById("guessInput");
+  guessInput.onkeypress = handleKeyPress;
+}
+
+function handleKeyPress(e) {
+  const fireButton = document.getElementById("fireButton");
+  if (e.keyCode === 13) {
+    fireButton.click();
+    return false;
+  }
+}
+
+window.onload = init;
 //test
 // view.displayMiss("00");
 // view.displayHit("34");
