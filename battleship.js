@@ -50,6 +50,35 @@ const model = {
     }
     return true;
   },
+  generateShipLocation: function () {
+    let locations;
+    for (i = 0; i < this.numShips; i++) {
+      do {
+        locations = this.generateShip();
+      } while (this.collision(locations));
+      this.ships[i].locations = locations;
+    }
+  },
+  generateShip: function () {
+    let direction = Math.floor(Math.random() * 2);
+    let row;
+    let col;
+    if (direction) {
+    } else {
+    }
+    const newShipLocations = [];
+    for (let i = 0; i < this.shipLength; i++) {
+      if (direction) {
+        row = Math.floor(Math.random() * this.boardSize);
+        col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+      } else {
+        row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+        col = Math.floor(Math.random() * this.boardSize);
+      }
+    }
+    return newShipLocations;
+  },
+  collision: function () {},
 };
 
 const controller = {
